@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KMC School | Student Dashboard</title>
+    <link rel="stylesheet" href="student-dashboard.css">
+    <link rel="icon" type="image/png" href="kmc logo.png">
+</head>
+<body>
+
+    <header class="school-header">
+        <div class="logo-area">
+            <img src="kmc logo.png" alt="KMC Logo" class="logo-img">
+            <div class="logo-text">KMC SCHOOL</div>
+        </div>
+        <div class="contact-info">
+            <div>info@kmcschool.edu.np</div>
+            <div>01-4792016, 4792906, 4790361, 4797111</div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <a href="student-dashboard.html" class="nav-item active">Dashboard</a>
+        <a href="student-timetable.html" class="nav-item">Timetable</a>
+        <a href="student-notice.html" class="nav-item">Notices</a>
+        <a href="student-homework.html" class="nav-item">Homework</a>
+        <a href="parents-complain.html" class="nav-item">Parents Complain</a>
+        <a href="student-login.html" class="nav-item logout">Logout</a>
+    </nav>
+
+    <main class="main-content">
+
+        <div class="welcome-section">
+            <h1>Welcome back, <span id="studentName">Student</span>!</h1>
+            <p>Stay updated with your classes, notices, and assignments.</p>
+        </div>
+
+        <section class="dashboard-section status-section">
+            <p class="today-message">
+                Today is <span id="today-day"></span> • Nepal Time: <span id="current-time"></span>
+            </p>
+            <p id="period-status" class="period-status">Loading schedule...</p>
+
+            <div class="countdown-section">
+                <p>Final Exam Countdown</p>
+                <p id="days-remaining" class="days-remaining">Calculating days...</p>
+            </div>
+        </section>
+
+        <section class="dashboard-section quick-links">
+            <h2>Quick Links</h2>
+            <div class="links-grid">
+                <a href="student-timetable.html" class="link-card">
+                    <h3>Timetable</h3>
+                    <p>View your daily schedule and current period</p>
+                </a>
+                <a href="student-notice.html" class="link-card">
+                    <h3>Notices</h3>
+                    <p>See latest announcements and exam routines</p>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        © KMC School, Buddhanagar, Kathmandu • Est. 2006 • All rights reserved
+    </footer>
+
+    <script>
+        const studentName = localStorage.getItem('studentName') || 'Student';
+        document.getElementById('studentName').textContent = studentName;
+
+        function getNepalTime() {
+            const now = new Date();
+            const offsetMs = 5.75 * 60 * 60 * 1000;
+            return new Date(now.getTime() + offsetMs + now.getTimezoneOffset() * 60 * 1000);
+        }
+
+        const examDate = new Date("2026-03-19T00:00:00+05:45");
+
+        function updateDashboard() {
+            const nepal = getNepalTime();
+            const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const day = dayNames[nepal.getDay()];
+
+            const timeStr = nepal.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+
+            document.getElementById("today-day").textContent = day;
+            document.getElementById("current-time").textContent = timeStr;
+
+            const hour = nepal.getHours();
+            const minute = nepal.getMinutes();
+            const currentTime = hour * 100 + minute;
+
+            let msg = "";
+            if (day === "Saturday") {
+                msg = "Today is a holiday – enjoy!";
+            } else if (currentTime < 930) {
+                msg = "Classes haven't started yet (before 9:30 AM)";
+            } else if (currentTime > 1500) {
+                msg = "School is over for today (after 3:00 PM)";
+            } else {
+                msg = "Classes are ongoing right now";
+            }
+            document.getElementById("period-status").textContent = msg;
+
+            const diffMs = examDate - nepal;
+            let daysMsg = "";
+            if (diffMs <= 0) {
+                daysMsg = "Final Exam has started!";
+            } else {
+                const daysLeft = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                daysMsg = daysLeft + " days remaining until final exam";
+            }
+            document.getElementById("days-remaining").textContent = daysMsg;
+        }
+
+        updateDashboard();
+        setInterval(updateDashboard, 60000);
+    </script>
+
+</body>
+</html>

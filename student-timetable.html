@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KMC School – Timetable | Class 7 "DG"</title>
+    <link rel="icon" type="image/png" href="kmc logo.png">
+    <link rel="stylesheet" href="student-timetable.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="kmc logo.png" alt="KMC Logo" class="logo-img">
+                <span class="kmc">KMC</span> <span class="school">SCHOOL</span>
+            </div>
+            <div class="contact-info">
+                <div class="email">info@kmcschool.edu.np</div>
+                <div class="phone">01-4792016, 4792906, 4790361, 4797111</div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <a href="student-dashboard.html" class="nav-item">Dashboard</a>
+        <a href="student-timetable.html" class="nav-item active">Timetable</a>
+        <a href="student-notice.html" class="nav-item">Notices</a>
+        <a href="student-homework.html" class="nav-item">Homework</a>
+        <a href="parents-complain.html" class="nav-item">Parents Complain</a>
+        <a href="student-login.html" class="nav-item logout">Logout</a>
+    </nav>
+
+    <main class="main-content">
+        
+        <div class="welcome-section">
+            <h1>Timetable – Class 7 "DG"</h1>
+            <p>Regular class schedule (Saturday is holiday)</p>
+            
+            <p class="today-message">
+                Today is <span id="today-day"></span> • Time: <span id="current-time"></span>
+            </p>
+            <p id="status-message" class="period-status">Loading schedule...</p>
+        </div>
+
+        <section class="timetable-section">
+            <h2>Weekly Class Timetable</h2>
+            <table class="timetable-table" id="timetable">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>1st</th>
+                        <th>2nd</th>
+                        <th>3rd</th>
+                        <th>4th</th>
+                        <th>5th</th>
+                        <th>6th</th>
+                        <th>7th</th>
+                        <th>8th</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sunday</td>
+                        <td>Eng I</td>
+                        <td>Social</td>
+                        <td>Computer</td>
+                        <td>Maths</td>
+                        <td>Nepali</td>
+                        <td>Lifeskills</td>
+                        <td>Science</td>
+                        <td>Eng II</td>
+                    </tr>
+                    <tr>
+                        <td>Monday</td>
+                        <td>Eng I</td>
+                        <td>Newari</td>
+                        <td>Maths</td>
+                        <td>Arts</td>
+                        <td>Nepali</td>
+                        <td>Social</td>
+                        <td>Science</td>
+                        <td>Science</td>
+                    </tr>
+                    <tr>
+                        <td>Tuesday</td>
+                        <td>Eng I</td>
+                        <td>Eng II</td>
+                        <td>Music</td>
+                        <td>Lifeskill</td>
+                        <td>Science</td>
+                        <td>Maths</td>
+                        <td>Nepali</td>
+                        <td>Social</td>
+                    </tr>
+                    <tr>
+                        <td>Wednesday</td>
+                        <td>Eng I</td>
+                        <td>Eng II</td>
+                        <td>Dance</td>
+                        <td>Scout</td>
+                        <td>Maths</td>
+                        <td>Science</td>
+                        <td>Nepali</td>
+                        <td>Social</td>
+                    </tr>
+                    <tr>
+                        <td>Thursday</td>
+                        <td>Eng I</td>
+                        <td>Computer</td>
+                        <td>Eng II</td>
+                        <td>Maths</td>
+                        <td>Literature</td>
+                        <td>Games</td>
+                        <td>Social</td>
+                        <td>Nepali</td>
+                    </tr>
+                    <tr>
+                        <td>Friday</td>
+                        <td>Eng I</td>
+                        <td>Maths</td>
+                        <td>Eng II</td>
+                        <td>Computer</td>
+                        <td>Nepali</td>
+                        <td>Science</td>
+                        <td>Social</td>
+                        <td>Drama</td>
+                    </tr>
+                    <tr class="holiday-row">
+                        <td>Saturday</td>
+                        <td colspan="8">HOLIDAY</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>© KMC School, Buddhanagar, Kathmandu • All rights reserved • 2026</p>
+    </footer>
+
+    <script>
+        
+        const schedule = [
+            { start: 930,  end: 1015, name: "1st Period", col: 1 },
+            { start: 1015, end: 1100, name: "2nd Period", col: 2 },
+            { start: 1100, end: 1145, name: "3rd Period", col: 3 },
+            { start: 1145, end: 1230, name: "4th Period", col: 4 },
+            { start: 1230, end: 1315, name: "Lunch Break", col: null },
+            { start: 1315, end: 1400, name: "5th Period", col: 5 },
+            { start: 1400, end: 1445, name: "6th Period", col: 6 },
+            { start: 1445, end: 1530, name: "7th Period", col: 7 },
+            { start: 1530, end: 1615, name: "8th Period", col: 8 }
+        ];
+
+        function getNepalTime() {
+            const now = new Date();
+            const offsetMs = 5.75 * 60 * 60 * 1000;
+            return new Date(now.getTime() + offsetMs + now.getTimezoneOffset() * 60 * 1000);
+        }
+
+        function updateDisplay() {
+            const nepal = getNepalTime();
+            const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const dayIdx = nepal.getDay(); 
+            const day = dayNames[dayIdx];
+
+            document.getElementById("today-day").textContent = day;
+            document.getElementById("current-time").textContent = nepal.toLocaleTimeString('en-US', {
+                hour: 'numeric', minute: '2-digit', hour12: true
+            });
+
+            const hour = nepal.getHours();
+            const minute = nepal.getMinutes();
+            const currentTime = hour * 100 + minute;
+
+            let statusEl = document.getElementById("status-message");
+            
+            
+            document.querySelectorAll('td').forEach(td => {
+                td.style.backgroundColor = "";
+                td.style.color = "";
+                td.style.fontWeight = "";
+            });
+
+            if (day === "Saturday") {
+                statusEl.innerHTML = "🏖️ Today is  Holiday!";
+                return;
+            }
+
+            const current = schedule.find(p => currentTime >= p.start && currentTime < p.end);
+
+            if (currentTime < 930) {
+                statusEl.innerHTML = "🕒 Morning Assembly / School hasn't started yet.";
+            } else if (currentTime >= 1615) {
+                statusEl.innerHTML = "🏠 School is over for today.";
+            } else if (current) {
+                statusEl.innerHTML = `📖 Current Status: <strong>${current.name}</strong>`;
+                if (current.col !== null) {
+                    highlightCell(dayIdx, current.col);
+                }
+            } else {
+                statusEl.innerHTML = "Classes are ongoing.";
+            }
+        }
+
+        function highlightCell(rowIdx, colIdx) {
+            const table = document.getElementById("timetable");
+            const rows = table.getElementsByTagName("tbody")[0].rows;
+            const targetRow = rows[rowIdx]; 
+            
+            if (targetRow) {
+                const cell = targetRow.cells[colIdx];
+                if (cell) {
+                    cell.style.backgroundColor = "#ffcc00"; 
+                    cell.style.color = "#003087";           
+                    cell.style.fontWeight = "bold";
+                    cell.style.border = "2px solid #c8102e"; 
+                }
+            }
+        }
+
+        updateDisplay();
+        setInterval(updateDisplay, 30000); 
+    </script>
+</body>
+</html>

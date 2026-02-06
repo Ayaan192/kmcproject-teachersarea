@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KMC School – Attendance | Class 7 "DG"</title>
+    <link rel="stylesheet" href="attendance.css">
+    <link rel="icon" type="image/png" href="kmc logo.png">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="kmc logo.png" alt="KMC Logo" class="logo-img">
+                <span class="kmc">KMC</span> <span class="school">SCHOOL</span>
+            </div>
+            <div class="contact-info">
+                <div class="email">info@kmcschool.edu.np</div>
+                <div class="phone">01-4792016, 4792906, 4790361, 4797111</div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <a href="dashboard.html" class="nav-item">Dashboard</a>
+        <a href="attendence.html" class="nav-item active">Attendance</a>
+        <a href="timetable.html" class="nav-item">Timetable</a>
+        <a href="notice.html" class="nav-item">Notice</a>
+        <a href="notice-up.html" class="nav-item">Update Notice</a>
+        <a href="teacher-homework.html" class="nav-item">Update Homework</a>
+        <a href="todo.html" class="nav-item">To do</a>
+        <a href="teacher-feedback.html" class="nav-item">Parents Complain</a>
+        <a href="teacher-login.html" class="nav-item logout">Logout</a>
+    </nav>
+
+    <main class="main-content">
+        <div class="welcome-section">
+            <h1>Attendance – Class 7 "DG"</h1>
+            <p id="date-display">Attendance of <span id="current-date"></span></p>
+        </div>
+
+        <section class="attendance-section">
+            <form id="attendanceForm">
+                <div style="margin-bottom: 20px; display: flex; gap: 15px; flex-wrap: wrap;">
+                    <button type="button" class="mark-all-btn" onclick="markAllPresent()">Mark All Present</button>
+                    <button type="button" class="mark-all-btn" onclick="markAllAbsent()">Mark All Absent</button>
+                    <button type="button" class="mark-all-btn" onclick="markAllLate()">Mark All Late</button>
+                </div>
+
+                <table class="attendance-table">
+                    <thead>
+                        <tr>
+                            <th>S.N.</th>
+                            <th>Student Name</th>
+                            <th>Present</th>
+                            <th>Absent</th>
+                            <th>Late</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentTable">
+                        <tr><td>1</td><td>Ayaan Ansari</td><td><input type="radio" name="att1" value="present"></td><td><input type="radio" name="att1" value="absent"></td><td><input type="radio" name="att1" value="late"></td></tr>
+                        <tr><td>2</td><td>Abik Thapa</td><td><input type="radio" name="att2" value="present"></td><td><input type="radio" name="att2" value="absent"></td><td><input type="radio" name="att2" value="late"></td></tr>
+                        <tr><td>3</td><td>Niraj Budhathoki</td><td><input type="radio" name="att3" value="present"></td><td><input type="radio" name="att3" value="absent"></td><td><input type="radio" name="att3" value="late"></td></tr>
+                        <tr><td>4</td><td>Stulya Chaulagain</td><td><input type="radio" name="att4" value="present"></td><td><input type="radio" name="att4" value="absent"></td><td><input type="radio" name="att4" value="late"></td></tr>
+                        <tr><td>5</td><td>Prabin Bhandari</td><td><input type="radio" name="att5" value="present"></td><td><input type="radio" name="att5" value="absent"></td><td><input type="radio" name="att5" value="late"></td></tr>
+                        <tr><td>6</td><td>Dipesh Niraula</td><td><input type="radio" name="att6" value="present"></td><td><input type="radio" name="att6" value="absent"></td><td><input type="radio" name="att6" value="late"></td></tr>
+                        <tr><td>7</td><td>Rishab Niraula</td><td><input type="radio" name="att7" value="present"></td><td><input type="radio" name="att7" value="absent"></td><td><input type="radio" name="att7" value="late"></td></tr>
+                    </tbody>
+                </table>
+
+                <div class="form-actions">
+                    <button type="button" class="save-btn" id="btnSave">Save to Cloud & Excel</button>
+                    <button type="button" class="reset-btn" onclick="resetForm()">Clear Selection</button>
+                </div>
+            </form>
+        </section>
+        <section class="attendance-section" id="notifyCenter" style="display:none; border-left: 6px solid var(--kmc-red);">
+            <h2>Absent Notify Center</h2>
+            <p id="notifyMessage" style="margin: 15px 0; font-weight: 500;"></p>
+            <div id="notifyList"></div>
+        </section>
+
+        <div id="summarySection" class="dashboard-section">
+            <h2 style="text-align: center;">Daily Attendance Summary</h2>
+            <div style="height: 300px; margin: 20px 0;">
+                <canvas id="attendanceChart"></canvas>
+            </div>
+            <div class="names-box">
+                <h3 style="color: #28a745;">🟢 Present Today:</h3>
+                <ul id="present-list-today" class="pills-list"><li>No data yet</li></ul>
+                <h3 style="color: #c8102e; margin-top: 20px;">🔴 Absent Today:</h3>
+                <ul id="absent-list-today" class="pills-list"><li>No data yet</li></ul>
+            </div>
+        </div>
+
+        <div id="historySection" class="dashboard-section">
+            <h2 style="text-align: center;">View Past Attendance</h2>
+            <div style="display: flex; justify-content: center; gap: 10px; margin: 20px 0;">
+                <input type="date" id="historyDate" style="padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
+                <button type="button" class="mark-all-btn" id="btnHistory">Check History</button>
+            </div>
+            <div id="historyResult" style="display: none; border-top: 1px solid #eee; padding-top: 20px;">
+                <p id="historyInfo" style="text-align: center; font-weight: bold; margin-bottom: 10px;"></p>
+                <div class="names-box">
+                     <h3 style="color: #28a745;">🟢 Was Present:</h3>
+                     <ul id="history-present-list" class="pills-list"></ul>
+                     <h3 style="color: #c8102e; margin-top: 15px;">🔴 Was Absent:</h3>
+                     <ul id="history-absent-list" class="pills-list"></ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDYgCaY7E0gVqoJj4Izg@s_opbAGJ12E20",
+            authDomain: "kmcproject-techersarea.firebaseapp.com",
+            projectId: "kmcproject-techersarea",
+            storageBucket: "kmcproject-techersarea.firebasestorage.app",
+            messagingSenderId: "997910909059",
+            appId: "1:997910909059:web:0b439a69bc253575de8bb6"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const studentEmails = {
+            "Ayaan Ansari": "Ayaan.nsr.2020@gmail.com",
+            "Abik Thapa": "Ayaan.nsr.2020@gmail.com",
+            "Niraj Budhathoki": "Ayaan.nsr.2020@gmail.com",
+            "Stulya Chaulagain": "Ayaan.nsr.2020@gmail.com",
+            "Prabin Bhandari": "Ayaan.nsr.2020@gmail.com",
+            "Dipesh Niraula": "Ayaan.nsr.2020@gmail.com",
+            "Rishab Niraula": "Ayaan.nsr.2020@gmail.com"
+        };
+
+        let myChart;
+        const today = new Date();
+        const dateId = today.toISOString().split('T')[0];
+        document.getElementById('current-date').textContent = today.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+        function updateChart(p, a, l) {
+            const ctx = document.getElementById('attendanceChart').getContext('2d');
+            if (myChart) myChart.destroy();
+            myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Present', 'Absent', 'Late'],
+                    datasets: [{ label: 'Students', data: [p, a, l], backgroundColor: ['#28a745', '#c8102e', '#ffc107'] }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+
+        async function sendEmail(name, message) {
+            const email = studentEmails[name] || "default@school.edu.np";
+            const subject = encodeURIComponent(`Absence Notification – ${name}`);
+            const body = encodeURIComponent(message);
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${body}`;
+            window.open(gmailUrl, '_blank');
+            await new Promise(r => setTimeout(r, 1500));
+        }
+
+        async function loadTodayAttendance() {
+            try {
+                const docRef = doc(db, "attendance", dateId);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    updateChart(data.pCount || 0, data.aCount || 0, data.lCount || 0);
+                    document.getElementById('present-list-today').innerHTML = (data.presentNames || []).map(n => `<li>${n}</li>`).join('') || "<li>None</li>";
+                    document.getElementById('absent-list-today').innerHTML = (data.absentNames || []).map(n => `<li>${n}</li>`).join('') || "<li>None</li>";
+                } else {
+                    updateChart(0, 0, 0);
+                    document.getElementById('present-list-today').innerHTML = "<li>Not saved yet</li>";
+                    document.getElementById('absent-list-today').innerHTML = "<li>Not saved yet</li>";
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        document.getElementById('btnSave').addEventListener('click', async () => {
+            const students = [
+                {name: "Ayaan Ansari", id: "att1"}, {name: "Abik Thapa", id: "att2"},
+                {name: "Niraj Budhathoki", id: "att3"}, {name: "Stulya Chaulagain", id: "att4"},
+                {name: "Prabin Bhandari", id: "att5"}, {name: "Dipesh Niraula", id: "att6"},
+                {name: "Rishab Niraula", id: "att7"}
+            ];
+
+            let counts = { present: 0, absent: 0, late: 0 };
+            let absentNames = [];
+            let presentNames = [];
+            let excelRows = [["S.N.", "Name", "Status", "Date"]];
+
+            students.forEach((s, i) => {
+                const status = document.querySelector(`input[name="${s.id}"]:checked`)?.value || "absent";
+                counts[status]++;
+                if (status === "absent") absentNames.push(s.name);
+                if (status !== "absent") presentNames.push(s.name);
+                excelRows.push([i + 1, s.name, status.toUpperCase(), dateId]);
+            });
+
+            try {
+                await setDoc(doc(db, "attendance", dateId), {
+                    pCount: counts.present,
+                    aCount: counts.absent,
+                    lCount: counts.late,
+                    absentNames,
+                    presentNames,
+                    timestamp: new Date()
+                }, { merge: true });
+
+                await loadTodayAttendance();
+
+                const notifyCenter = document.getElementById('notifyCenter');
+                const notifyMessage = document.getElementById('notifyMessage');
+                const notifyList = document.getElementById('notifyList');
+
+                notifyMessage.innerHTML = "Excel file saved successfully after cloud upload.";
+                notifyList.innerHTML = "";
+
+                if (absentNames.length > 0) {
+                    notifyCenter.style.display = 'block';
+
+                    absentNames.forEach(name => {
+                        const defaultMsg = `Dear Parents/Guardian,\n\nYour child was marked Absent today.\n\nName: ${name}\nDate: ${dateId}\nClass: 7 "DG"\n\nPlease inform the class teacher about the reason.\n\nThank you.`;
+
+                        const item = document.createElement('div');
+                        item.style.margin = '20px 0';
+                        item.style.padding = '15px';
+                        item.style.background = '#fff5f5';
+                        item.style.border = '1px solid #ffcdd2';
+                        item.style.borderRadius = '8px';
+
+                        item.innerHTML = `
+                            <strong>${name}</strong><br><br>
+                            <textarea rows="6" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px; font-family:inherit;">${defaultMsg}</textarea><br><br>
+                            <button class="save-btn" style="padding:10px 25px;" onclick="sendEmail('${name}', this.previousElementSibling.previousElementSibling.value)">Send Email</button>
+                        `;
+
+                        notifyList.appendChild(item);
+                    });
+                } else {
+                    notifyCenter.style.display = 'block';
+                    notifyMessage.innerHTML = "Excel file saved successfully. No absentees today.";
+                }
+
+                const ws = XLSX.utils.aoa_to_sheet(excelRows);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Attendance");
+                XLSX.writeFile(wb, `KMC_7DG_${dateId}.xlsx`);
+                setTimeout(() => {
+                    notifyCenter.style.display = 'none';
+                }, 90000);
+
+            } catch (e) {
+                console.error(e);
+                alert("Error saving attendance.");
+            }
+        });
+
+        document.getElementById('btnHistory').addEventListener('click', async () => {
+            const selDate = document.getElementById('historyDate').value;
+            if (!selDate) return alert("Select a date!");
+
+            const docSnap = await getDoc(doc(db, "attendance", selDate));
+            if (docSnap.exists()) {
+                const d = docSnap.data();
+                document.getElementById('historyResult').style.display = 'block';
+                document.getElementById('historyInfo').innerText = `Record for ${selDate}`;
+                document.getElementById('history-absent-list').innerHTML =
+                    (d.absentNames || []).map(n => `<li>${n}</li>`).join('') || "<li>Everyone Present</li>";
+                document.getElementById('history-present-list').innerHTML =
+                    (d.presentNames || []).map(n => `<li>${n}</li>`).join('') || "<li>No one present</li>";
+            } else {
+                alert("No record for that date.");
+            }
+        });
+
+        window.markAllPresent = () => {
+            document.querySelectorAll('input[value="present"]').forEach(r => r.checked = true);
+        };
+
+        window.markAllAbsent = () => {
+            document.querySelectorAll('input[value="absent"]').forEach(r => r.checked = true);
+        };
+
+        window.markAllLate = () => {
+            document.querySelectorAll('input[value="late"]').forEach(r => r.checked = true);
+        };
+
+        window.resetForm = () => {
+            document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+        };
+
+        window.sendEmail = sendEmail;
+
+        loadTodayAttendance();
+    </script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+:root {
+    --kmc-blue-dark:  #003087;
+    --kmc-blue:       #0044cc;
+    --kmc-red:        #c8102e;
+    --kmc-gold:       #ffcc00;
+    --light-bg:       #f8f9fa;
+}
+
+.main-header {
+    background: var(--kmc-blue-dark);
+    color: white;
+    padding: 1px 30px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.header-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.logo {
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+.logo-img {
+    height: 90px;
+    width: auto;
+    max-width: 220px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 16px;
+}
+
+.logo .kmc { color: white; }
+.logo .school { color: var(--kmc-gold); }
+
+.contact-info {
+    font-size: 0.95rem;
+    text-align: right;
+}
+
+.main-nav {
+    background: #0d1b46;
+    padding: 14px 0;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.nav-item {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin: 0 25px;
+    padding: 10px 8px;
+    transition: all 0.2s;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    color: var(--kmc-gold);
+    background: rgba(255,255,255,0.08);
+    border-radius: 5px;
+}
+
+.logout {
+    color: #ff9999 !important;
+}
+
+.main-content {
+    max-width: 1300px;
+    margin: 40px auto;
+    padding: 0 25px;
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 25px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.welcome-section h1 {
+    color: var(--kmc-blue);
+    font-size: 2.3rem;
+    margin-bottom: 10px;
+}
+
+.welcome-section p {
+    color: #555;
+    font-size: 1.1rem;
+}
+
+/* Timetable Section */
+.timetable-section {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border-left: 5px solid var(--kmc-red);
+}
+
+.timetable-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1.05rem;
+}
+
+.timetable-table th,
+.timetable-table td {
+    border: 1px solid #ddd;
+    padding: 14px 10px;
+    text-align: center;
+}
+
+.timetable-table th {
+    background: var(--kmc-blue);
+    color: white;
+    font-weight: 600;
+}
+
+.timetable-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.timetable-table .holiday-row {
+    background-color: #fff3cd;
+    font-weight: bold;
+    color: #856404;
+}
+
+.timetable-table .holiday-row td {
+    padding: 18px;
+    font-size: 1.2rem;
+}
+
+.main-footer {
+    background: var(--kmc-blue-dark);
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 60px;
+    font-size: 0.95rem;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .timetable-table {
+        font-size: 0.95rem;
+    }
+
+    .timetable-table th,
+    .timetable-table td {
+        padding: 10px 8px;
+    }
+
+    .nav-item {
+        margin: 0 15px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .contact-info {
+        text-align: center;
+    }
+
+    .main-nav {
+        padding: 10px 0;
+    }
+
+    .nav-item {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .timetable-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+.today-message {
+    margin-top: 15px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #c8102e;
+    background: #fff3cd;
+    padding: 8px 15px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.today-message {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #003087;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.period-status {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #c8102e;
+    background: #fff3cd;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 700px;
+}

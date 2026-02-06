@@ -1,0 +1,224 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom, #e6f0ff, #f8f9fa);
+    min-height: 100vh;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+}
+
+.school-header {
+    background: #003087;
+    color: white;
+    padding: 12px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.logo-img {
+    height: 60px;
+    width: auto;
+}
+
+.logo-text {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.contact-info {
+    font-size: 0.95rem;
+    text-align: right;
+    line-height: 1.5;
+}
+
+.main-nav {
+    background: #0d1b46;
+    padding: 14px 0;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.nav-item {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin: 0 20px;
+    padding: 10px 12px;
+    transition: all 0.2s;
+}
+
+.nav-item:hover, .nav-item.active {
+    color: #ffcc00;
+    background: rgba(255,255,255,0.08);
+    border-radius: 5px;
+}
+
+.logout {
+    color: #ff9999 !important;
+}
+
+.main-content {
+    flex: 1;
+    max-width: 1300px;
+    margin: 40px auto;
+    padding: 0 30px;
+    width: 100%;
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 30px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+.welcome-section h1 {
+    color: #003087;
+    font-size: 2.4rem;
+    margin-bottom: 12px;
+}
+
+.welcome-section p {
+    color: #555;
+    font-size: 1.15rem;
+}
+
+.dashboard-section {
+    background: white;
+    border-radius: 16px;
+    padding: 35px;
+    margin-bottom: 40px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    border-left: 6px solid #c8102e;
+}
+
+.dashboard-section h2 {
+    color: #003087;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.today-message {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #003087;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.period-status {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #c8102e;
+    background: #fff3cd;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.countdown-section {
+    text-align: center;
+    margin: 25px 0;
+    font-size: 1.4rem;
+    color: #c8102e;
+}
+
+.days-remaining {
+    font-weight: bold;
+}
+
+.quick-links .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.link-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s;
+    border: 1px solid #ddd;
+}
+
+.link-card:hover {
+    background: #fff;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.link-card h3 {
+    color: #003087;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.link-card p {
+    color: #555;
+    font-size: 1rem;
+}
+
+.main-footer {
+    background: #003087;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 1rem;
+    margin-top: auto;
+}
+
+@media (max-width: 768px) {
+    .school-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 16px;
+    }
+
+    .contact-info {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .main-nav {
+        padding: 10px 0;
+    }
+
+    .nav-item {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .welcome-section h1 {
+        font-size: 2rem;
+    }
+
+    .dashboard-section {
+        padding: 25px;
+    }
+}

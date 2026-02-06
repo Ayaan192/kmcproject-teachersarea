@@ -1,0 +1,239 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+:root {
+    --kmc-blue-dark:  #003087;
+    --nav-bg:         #0d1b46;
+    --kmc-blue:       #0044cc;
+    --kmc-red:        #c8102e;
+    --kmc-yellow:     #ffcc00;
+    --kmc-green:      #28a745;
+}
+
+.main-header {
+    background: var(--kmc-blue-dark);
+    color: white;
+    padding: 0.6px 30px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.header-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+.logo-img {
+    height: 90px;
+    width: auto;
+    max-width: 220px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 16px;
+}
+
+.logo .school { color: var(--kmc-yellow); }
+
+.contact-info {
+    font-size: 0.95rem;
+    text-align: right;
+}
+.main-nav {
+    background: var(--nav-bg);
+    padding: 1px 0;
+    text-align: center;
+}
+
+.nav-item {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0 28px;
+    padding: 10px 10px;
+    transition: all 0.2s;
+    display: inline-block;
+}
+
+.nav-item:hover, .nav-item.active {
+    color: var(--kmc-yellow);
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 5px;
+}
+
+.logout { color: #ff9999 !important; }
+
+.main-content {
+    max-width: 1300px;
+    margin: 40px auto;
+    padding: 0 25px;
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.welcome-section h1 {
+    color: var(--kmc-blue);
+    font-size: 2.4rem;
+    margin-bottom: 10px;
+}
+
+.attendance-section {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border-left: 6px solid var(--kmc-red);
+}
+
+.attendance-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 25px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #eee;
+}
+
+.attendance-table thead tr {
+    background-color: var(--kmc-blue-dark);
+    color: white;
+}
+
+.attendance-table th, .attendance-table td {
+    padding: 18px;
+    text-align: center;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.attendance-table td:nth-child(2) {
+    text-align: left;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.attendance-table tbody tr:hover {
+    background-color: #f9fbff;
+}
+
+.mark-all-btn {
+    background: #eef2ff;
+    color: var(--kmc-blue);
+    border: 1px solid var(--kmc-blue);
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.mark-all-btn:hover {
+    background: var(--kmc-blue);
+    color: white;
+}
+
+.form-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.save-btn {
+    background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+    color: white;
+    border: none;
+    padding: 15px 45px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    transition: transform 0.2s;
+}
+
+.save-btn:hover { transform: translateY(-3px); }
+
+.reset-btn {
+    background: white;
+    color: #666;
+    border: 2px solid #ddd;
+    padding: 13px 40px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.history-card {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.stats-container {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.chart-box { flex: 1; height: 300px; }
+.names-box { flex: 1; }
+
+.pills-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.pills-list li {
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.absent-pills li {
+    background: #ffebee;
+    color: #c62828;
+}
+
+/* Additions for Absent Notify Center */
+#notifyCenter h2 {
+    color: var(--kmc-red);
+    margin-bottom: 15px;
+}
+
+#notifyCenter .save-btn {
+    margin-top: 8px;
+    font-size: 0.95rem;
+    padding: 10px 20px;
+}

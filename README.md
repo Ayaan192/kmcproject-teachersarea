@@ -17,10 +17,10 @@ The project is built using **HTML, CSS, JavaScript, and Firebase Realtime Databa
 
 The portal is divided into **two distinct ecosystems**, connected through a **central cloud database**:
 
-1. **Administrative Engine (Teacher Area)** – Data Creation & Management  
-2. **Information Hub (Student Area)** – Data Viewing & Interaction  
+1. **Teacher Area** – Data Creation & Management  
+2. **Student Area** – Data Viewing 
 
-Firebase acts as the **single source of truth**, enabling real-time synchronization between all modules.
+Firebase is the main thing as it stores all data.
 
 ---
 
@@ -63,12 +63,12 @@ The **Student Area** is designed for viewing academic content and communicating 
 
 | Page Name | File Name | Description |
 |---------|----------|-------------|
-| Student Gateway | `student-login.html` | Student login page |
-| Personal Hub | `student-dashboard.html` | Student home dashboard |
-| Homework Feed | `student-homework.html` | View assigned homework |
+| Student login | `student-login.html` | Student login page |
+| student dashboard | `student-dashboard.html` | Student home dashboard |
+| Homework viewer| `student-homework.html` | View assigned homework |
 | Live Notice Board | `student-notice.html` | View school notices |
 | Timetable | `student-timetable.html` | View daily timetable |
-| Communication Module | `parents-complain.html` | Parents send messages |
+| Complainer | `parents-complain.html` | Parents send messages |
 
 Students **do not modify data**.  
 They only consume verified information provided by teachers.
@@ -91,7 +91,7 @@ This is the **core logic** of the project.
    Student pages use Firebase listeners that detect changes instantly.
 
 4. **Instant UI Update**  
-   Student pages update automatically show data if teacher enter.
+   Student pages update automatically show data if teacher enter's.
 
 5. **Feedback**  
    Parents send complaints via student portal →  

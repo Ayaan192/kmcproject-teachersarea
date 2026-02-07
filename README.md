@@ -24,14 +24,13 @@ Firebase acts as the **single source of truth**, enabling real-time synchronizat
 
 ---
 
-## 👨‍🏫 1. Teacher Area – Administrative Engine (Write Access)
+## 👨‍🏫 1. Teacher Area –
 
 The **Teacher Area** is the control center of the system.  
 All academic data is **created, updated, and managed** here.
 
 ### Key Characteristics
 - Full write and management access
-- Central authority over school data
 - Real-time data publishing
 
 ### Teacher Pages & Functions
@@ -51,7 +50,7 @@ All actions in this area **write data directly to Firebase**, making updates ins
 
 ---
 
-## 🎓 2. Student Area – Information Hub (Read Access)
+## 🎓 2. Student Area –
 
 The **Student Area** is designed for viewing academic content and communicating with teachers.
 
@@ -68,7 +67,7 @@ The **Student Area** is designed for viewing academic content and communicating 
 | Personal Hub | `student-dashboard.html` | Student home dashboard |
 | Homework Feed | `student-homework.html` | View assigned homework |
 | Live Notice Board | `student-notice.html` | View school notices |
-| Dynamic Routine | `student-timetable.html` | View daily timetable |
+| Timetable | `student-timetable.html` | View daily timetable |
 | Communication Module | `parents-complain.html` | Parents send messages |
 
 Students **do not modify data**.  
@@ -76,7 +75,7 @@ They only consume verified information provided by teachers.
 
 ---
 
-## 🔄 3. Data Synchronization Workflow (Real-Time Engine)
+## 🔄 3. Data Synchronization Workflow 
 
 This is the **core logic** of the project.
 
@@ -85,18 +84,18 @@ This is the **core logic** of the project.
 1. **Teacher Input**  
    Teacher submits data (homework, notice, attendance, timetable).
 
-2. **Firebase Relay**  
-   Data is stored in Firebase Realtime Database as structured JSON.
+2. **Firebase**  
+   Data is stored in Firebase Realtime Database.
 
 3. **Real-Time Sync**  
    Student pages use Firebase listeners that detect changes instantly.
 
 4. **Instant UI Update**  
-   Student pages update automatically without page refresh.
+   Student pages update automatically show data if teacher enter.
 
-5. **Feedback Loop**  
+5. **Feedback**  
    Parents send complaints via student portal →  
-   Messages appear instantly in teacher feedback inbox.
+   Messages appear in teacher feedback inbox.
 
 ---
 
@@ -106,8 +105,7 @@ This is the **core logic** of the project.
 |-----|-----------|
 | Frontend | HTML5, CSS3, JavaScript |
 | Backend | Firebase Realtime Database |
-| Hosting | Google Firebase |
-| Architecture | 3-Tier Web Architecture |
+| Hosting | Github page and Netlify |
 
 ---
 
